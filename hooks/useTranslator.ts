@@ -1,4 +1,4 @@
-import { setCookie } from "cookies-next";
+import { getCookie, setCookie } from "cookies-next";
 import { useContext } from "react";
 import { TranslatorContext } from "@/translator/provider/TranslationProvider";
 import { config } from "@/translator.config";
@@ -7,9 +7,20 @@ interface TranslationInput {
 	[key: string]: string | TranslationInput;
 }
 
+export const getLocale = () => {
+	let locale = config.defaultLang;
+	if (typeof window !== "undefined") {
+		locale = getCookie("lang")?.toString() || config.defaultLang;
+	}
+	return locale;
+};
+
 export const setLocale = (lang: string) => {
 	if (!config.langs.includes(lang)) return;
 	setCookie("lang", lang);
+	if (typeof window !== "undefined") {
+		window.location.reload();
+	}
 };
 
 export function useTranslator() {
