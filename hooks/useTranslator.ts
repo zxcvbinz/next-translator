@@ -23,10 +23,12 @@ export const setLocale = (lang: string) => {
 	}
 };
 
-export function useTranslator() {
+export function useTranslator(basePath = "") {
 	const translations = useContext(TranslatorContext);
-	const t = (keyPath: string): string | undefined => {
-		const keys = keyPath.split(".");
+
+	const t = (keyPath: string): string | "" => {
+		const completePath = basePath ? `${basePath}.${keyPath}` : keyPath;
+		const keys = completePath.split(".");
 		let current: TranslationInput | string = translations;
 
 		for (let key of keys) {
@@ -36,7 +38,8 @@ export function useTranslator() {
 				break;
 			}
 		}
-		return typeof current === "string" ? current : undefined;
+
+		return typeof current === "string" ? current : "";
 	};
 
 	return { t };
