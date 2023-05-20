@@ -1,0 +1,87 @@
+{
+	"dashboard": {
+		"dashboard": {
+			"widget": {
+				"dns_summary": "Richieste DNS Totali",
+				"dns_queries": "Richieste DNS",
+				"dns_blocked": "Richieste DNS Bloccate",
+				"client_total": "Client Totali",
+				"most_active_clients": "Client più attivi",
+				"most_blocked_domains": "Domini più bloccati"
+			}
+		},
+		"clients": {
+			"client_list": "Lista Client",
+			"client_details": "Dettagli Client",
+			"new_client": "Nuovo Client",
+			"client_category": "Categoria Client",
+			"client_device_type": {
+				"device_audio": "Dispositivo Audio",
+				"device_camera": "Fotocamera",
+				"device_gameconsole": "Console da gioco",
+				"device_laptop": "Laptop",
+				"device_nas": "NAS",
+				"device_pc": "PC",
+				"device_phone": "Telefono",
+				"device_printer": "Stampante",
+				"device_securityalarm": "Allarme di sicurezza",
+				"device_tablet": "Tablet",
+				"device_tv": "TV",
+				"device_other": "Altro"
+			},
+			"client_device_os": {
+				"os_android": "Android",
+				"os_ios": "iOS",
+				"os_linux": "Linux",
+				"os_macos": "macOS",
+				"os_windows": "Windows",
+				"os_other": "Altro"
+			}
+		},
+		"settings": "Impostazioni",
+		"logout": "Logout"
+	},
+	"profile": {
+		"dropdown": {
+			"hello": "Ciao,"
+		},
+		"profile": "Profilo",
+		"change_password": "Cambia Password",
+		"change_password_old": "Vecchia Password",
+		"change_password_new": "Nuova Password",
+		"change_password_new_repeat": "Ripeti Nuova Password",
+		"name": "Nome",
+		"email": "Email"
+	},
+	"general": {
+		"ok": "OK",
+		"cancel": "Annulla",
+		"close": "Chiudi",
+		"save": "Salva",
+		"delete": "Elimina",
+		"add": "Aggiungi",
+		"edit": "Modifica",
+		"name": "Nome",
+		"description": "Descrizione",
+		"enabled": "Abilitato",
+		"disabled": "Disabilitato",
+		"enabled_short": "E",
+		"disabled_short": "D",
+		"on": "On",
+		"off": "Off",
+		"yes": "Si",
+		"no": "No"
+	},
+
+	"sidebar": {
+		"dashboard": "Dashboard",
+		"clients": "Clients",
+		"settings": "Impostazioni",
+		"profile": "Profile",
+		"logout": "Logout"
+	},
+	"languages": {
+		"en": "Inglese",
+		"it": "Italiano"
+	}
+}
