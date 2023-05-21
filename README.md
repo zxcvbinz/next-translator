@@ -1,26 +1,19 @@
 # next-translator
 Simple next library for translation 
 
-## usage
-- Create a ```translator.config.ts``` on main dir ```/```
-- Copy this git on ```/``` with ```/translator```
-- Put the translation json on ```/translator/locales```
 
-translator.config.ts
-```typescript
-export const config = {
-	defaultLang: "it",
-	langs: ["it", "en"],
-};
-```
 
 
 layout.tsx
 ```typescript
-import { TranslationProvider } from "@/translator";
+import { TranslationProvider } from "next-translator";
 import "./globals.css";
-import { config } from "@/translator.config";
 import { cookies } from "next/headers";
+
+export const TranslateConfig = {
+	defaultLang: "it",
+	langs: ["it", "en"],
+};
 
 export default async function RootLayout({
 	children,
@@ -28,38 +21,48 @@ export default async function RootLayout({
 	children: React.ReactNode;
 }) {
 	const nextCookies = cookies();
-	let language = nextCookies.get("lang")?.value || config.defaultLang;
+	let language =
+		nextCookies.get("lang")?.value || TranslateConfig.defaultLang;
 	let translations;
 	try {
-		translations = (await import(`@/translator/locales/${language}.json`))
-			.default;
+		translations = (await import(`@/locales/${language}.json`)).default;
 	} catch (e) {
 		throw new Error("Language not found");
 	}
-  
 	return (
-		<html lang="it">
+		<html lang="en">
 			<body>
-				<TranslationProvider value={translations}>
+				<TranslationProvider
+					translations={translations}
+					config={TranslateConfig}>
 					{children}
 				</TranslationProvider>
 			</body>
 		</html>
 	);
 }
+
+export async function generateMetadata({ params }: { params: any }) {
+	return {
+		title: "Demo",
+	};
+}
+
 ```
 
 page.tsx
 ```typescript
 
 "use client"; #important
-import { useTranslator, setLocale } from "@/translator";
+import { useTranslator, setLocale } from "next-translator";
 interface Props {
 	params: any;
 }
 
 export default async function Page({ params }: Props) {
 	const { t } = useTranslator();
+	#or 
+	#const { t } = useTranslator("sidebar"); 
 
 	return (
 		<form>

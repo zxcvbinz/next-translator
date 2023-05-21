@@ -1,2 +1,3 @@
-export { useTranslator, setLocale, getLocale } from "./hooks/useTranslator";
+export { useTranslator, setLocale } from "./hooks/useTranslator";
+
 export { default as TranslationProvider } from "./provider/TranslationProvider";

@@ -1,13 +1,14 @@
 import { getCookie, setCookie } from "cookies-next";
 import { useContext } from "react";
-import { TranslatorContext } from "@/translator/provider/TranslationProvider";
-import { config } from "@/translator.config";
+import { TranslatorContext } from "../provider/TranslationProvider";
 
 interface TranslationInput {
 	[key: string]: string | TranslationInput;
 }
 
 export const getLocale = () => {
+	const { config } = useContext(TranslatorContext);
+
 	let locale = config.defaultLang;
 	if (typeof window !== "undefined") {
 		locale = getCookie("lang")?.toString() || config.defaultLang;
@@ -16,15 +17,14 @@ export const getLocale = () => {
 };
 
 export const setLocale = (lang: string) => {
-	if (!config.langs.includes(lang)) return;
-	setCookie("lang", lang);
 	if (typeof window !== "undefined") {
+		setCookie("lang", lang);
 		window.location.reload();
 	}
 };
 
 export function useTranslator(basePath = "") {
-	const translations = useContext(TranslatorContext);
+	const { translations } = useContext(TranslatorContext);
 
 	const t = (keyPath: string): string | "" => {
 		const completePath = basePath ? `${basePath}.${keyPath}` : keyPath;
