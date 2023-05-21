@@ -61,12 +61,12 @@ interface Props {
 
 export default async function Page({ params }: Props) {
 	const { t } = useTranslator();
-	#or 
-	#const { t } = useTranslator("sidebar"); 
+	/* or 
+	const { t } = useTranslator("sidebar");  */
 
 	return (
 		<form>
-    #To change language 
+    			/* To change language  */
 			<button onClick={() => setLocale("en")} type="submit">
 				{t("sidebar.profile")}
 			</button>
@@ -77,3 +77,8 @@ export default async function Page({ params }: Props) {
 
 ```
 
+## To Build
+```bash
+npm run build #This create dist folder
+npm pack #this create a tar.gz file
+```
