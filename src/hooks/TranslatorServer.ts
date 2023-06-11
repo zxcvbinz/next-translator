@@ -4,14 +4,14 @@ interface TranslationInput {
 	[key: string]: string | TranslationInput;
 }
 
-export function checkServerLocale(TranslateConfig: any) {
+export function CheckServerLocale(TranslateConfig: any) {
 	const nextCookies = cookies();
 	let language =
 		nextCookies.get("lang")?.value || TranslateConfig.defaultLang;
 	return language;
 }
 
-export async function useTranslatorServer(
+export async function TranslatorServer(
 	basePath = "",
 	translations: TranslationInput
 ) {
