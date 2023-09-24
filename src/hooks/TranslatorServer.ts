@@ -15,7 +15,7 @@ export async function TranslatorServer(
 	basePath = "",
 	translations: TranslationInput
 ) {
-	const t = (keyPath: string): string | "" => {
+	const t = (keyPath: string, ...args: any[]): string => {
 		const completePath = basePath ? `${basePath}.${keyPath}` : keyPath;
 		const keys = completePath.split(".");
 		let current: TranslationInput | string = translations;
@@ -28,7 +28,14 @@ export async function TranslatorServer(
 			}
 		}
 
-		return typeof current === "string" ? current : basePath;
+		if (typeof current === "string") {
+			let i = 0;
+			return current.replace(/%s/g, () => {
+				return args[i++] || "";
+			});
+		}
+
+		return basePath;
 	};
 
 	return { t };
