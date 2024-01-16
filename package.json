@@ -19,5 +19,9 @@
         "typescript": "5.0.4"
     },
     "author": "zxcvbinz",
-    "license": "ISC"
+    "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/zxcvbinz/next-translator.git"
+    }
 }

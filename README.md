@@ -1,119 +1,157 @@
 # next-translator
 
-Simple next library for translation
+`next-translator` is a simple yet powerful translation library for Next.js applications, offering seamless integration for both server-side and client-side translation management.
 
-layout.tsx
+## Features
 
-```typescript
-import { TranslationProvider } from "next-translator";
-import "./globals.css";
-import { cookies } from "next/headers";
+-   Easy to configure and use.
+-   Supports both server-side and client-side rendering.
+-   Dynamic translation loading based on user preferences or defaults.
+-   Support for variables in translation strings.
 
-export const TranslateConfig = {
-	defaultLang: "it",
-	langs: ["it", "en"],
-};
+## Installation
 
-export default async function RootLayout({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
-	const nextCookies = cookies();
-	let language =
-		nextCookies.get("lang")?.value || TranslateConfig.defaultLang;
-	let translations;
-	try {
-		translations = (await import(`@/locales/${language}.json`)).default;
-	} catch (e) {
-		throw new Error("Language not found");
-	}
-	return (
-		<html lang="en">
-			<body>
-				<TranslationProvider
-					translations={translations}
-					config={TranslateConfig}>
-					{children}
-				</TranslationProvider>
-			</body>
-		</html>
-	);
-}
-
-export async function generateMetadata({ params }: { params: any }) {
-	return {
-		title: "Demo",
-	};
-}
-```
-
-server-page.tsx
-
-```typescript
-import { useTranslatorServer } from "next-translator";
-
-interface Props {
-	params: any;
-}
-
-/* Export this in case of multiple uses */
-const TranslateConfig = {
-	defaultLang: "it",
-	langs: ["it", "en"],
-};
-
-const language = checkServerLocale(TranslateConfig);
-let translations;
-try {
-	translations = (await import(`@/locales/${language}.json`)).default;
-} catch (e) {
-	throw new Error("Language not found");
-}
-
-const { t } = await useTranslatorServer("metadata", translations);
-
-const title = t("title");
-const description = t("description");
-return {
-	title: title,
-	description: description,
-};
-
-export default async function Page({ params }: Props) {
-	return <h1>Demo Page</h1>;
-}
-```
-
-page.tsx
-
-```typescript
-"use client";
-#important;
-import { useTranslator, setLocale } from "next-translator";
-interface Props {
-	params: any;
-}
-
-export default async function Page({ params }: Props) {
-	const { t } = useTranslator();
-	/* or 
-	const { t } = useTranslator("sidebar");  */
-
-	return (
-		<form>
-			/* To change language */
-			<button onClick={() => setLocale("en")} type="submit">
-				{t("sidebar.profile")}
-			</button>
-		</form>
-	);
-}
-```
-
-## To Build
+To install `next-translator`, run the following command:
 
 ```bash
-npm run build #This create dist folder
-npm pack #this create a tar.gz file
+npm install next-translator
+```
+
+## Setup
+
+### Configuring Translations
+
+First, create a configuration file for managing your translations. You can simply copy and paste the following example. Make sure to keep the directory structure unchanged for seamless integration.
+
+```typescript
+// utils/initializeTranslations.ts
+import { cookies } from 'next/headers';
+import { ServerConfig, configTR } from 'next-translator';
+
+const initializeTranslations = async () => {
+    const config: configTR = {
+        defaultLang: 'it',
+        langs: ['it']
+    };
+
+    const nextCookies = cookies();
+    let language = nextCookies.get('lang')?.value || config.defaultLang;
+    let translations;
+    try {
+        translations = (await import(`@/locales/${language}.json`)).default;
+    } catch (e) {
+        throw new Error('Language not found');
+    }
+    const data: ServerConfig = {
+        translations,
+        config
+    };
+    return { data };
+};
+
+export default initializeTranslations;
+```
+
+### Creating the Locales Directory
+
+Create a `locales` directory in your project to store your JSON translation files (e.g., `it.json`, `en.json`).
+
+## Usage
+
+### Using Variables in Translations
+
+You can include variables in your JSON translation files like this:
+
+```json
+{
+    "hello": "Hello %s"
+}
+```
+
+And use them in your translations:
+
+```javascript
+t('hello', 'zxcvbinz');
+```
+
+This feature is available both on the server and client side.
+
+### Server-Side Rendering
+
+To use `next-translator` in a server-side rendered page, import and initialize translations as follows:
+
+```typescript
+// pages/home.tsx
+import initializeTranslations from '@/utils/translations';
+import { CreateServerProvider } from 'next-translator';
+
+export default async function Home() {
+    const { data } = await initializeTranslations();
+    const { t } = CreateServerProvider(data).useServerTranslator('server');
+
+    return (
+        <>
+            <h1>{t('name')}</h1>
+        </>
+    );
+}
+```
+
+### Client-Side Rendering
+
+For client-side rendering, set up the `TranslationProvider` in your `layout.tsx`:
+
+```typescript
+// layout.tsx
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import initializeTranslations from '@/utils/translations';
+import { TranslationProvider } from 'next-translator';
+
+const inter = Inter({ subsets: ['latin'] });
+
+export const metadata: Metadata = {
+    title: 'Create Next App',
+    description: 'Generated by create next app'
+};
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+    const { data } = await initializeTranslations();
+
+    return (
+        <html lang="it">
+            <body className={inter.className}>
+                <TranslationProvider data={data}>{children}</TranslationProvider>
+            </body>
+        </html>
+    );
+}
+```
+
+Then, use the translator in your app:
+
+```typescript
+// pages/home.tsx
+'use client';
+import { useTranslator } from 'next-translator';
+
+export default async function Home() {
+    const { t } = useTranslator('client');
+
+    return (
+        <>
+            <h1>{t('name')}</h1>
+        </>
+    );
+}
+```
+
+## Building the Package
+
+To build the package, run:
+
+```bash
+npm run build # Creates dist folder
+npm pack # Creates a tar.gz file
 ```
