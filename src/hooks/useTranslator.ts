@@ -16,10 +16,10 @@ export const getLocale = () => {
 	return locale;
 };
 
-export const setLocale = (lang: string) => {
+export const setLocale = (lang: string, autoReload = true) => {
 	if (typeof window !== "undefined") {
 		setCookie("lang", lang);
-		window.location.reload();
+		if (autoReload) window.location.reload();
 	}
 };
 
