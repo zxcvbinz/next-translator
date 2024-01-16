@@ -20,6 +20,6 @@ export let TranslatorContext = createContext<{
     }
 });
 
-export default function TranslationProvider({ data, children }: Props) {
+export function TranslationProvider({ data, children }: Props) {
     return <TranslatorContext.Provider value={{ data }}>{children}</TranslatorContext.Provider>;
 }
