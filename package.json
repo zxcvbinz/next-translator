@@ -1,6 +1,6 @@
 {
     "name": "next-translator",
-    "version": "3.0.3",
+    "version": "3.0.4",
     "description": "Simple multilanguage for nextjs",
     "main": "dist/index.js",
     "scripts": {
