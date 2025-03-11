@@ -1,27 +1,28 @@
 # next-translator
 
-`next-translator` is a simple yet powerful translation library for Next.js applications, offering seamless integration for both server-side and client-side translation management.
+`next-translator` è una libreria di traduzione semplice ma potente per applicazioni Next.js, che offre un'integrazione perfetta per la gestione delle traduzioni sia lato server che lato client.
 
-## Features
+## Caratteristiche
 
--   Easy to configure and use.
--   Supports both server-side and client-side rendering.
--   Dynamic translation loading based on user preferences or defaults.
--   Support for variables in translation strings.
+-   Facile da configurare e utilizzare.
+-   Supporta il rendering sia lato server che lato client.
+-   Caricamento dinamico delle traduzioni in base alle preferenze dell'utente o ai valori predefiniti.
+-   Supporto per variabili nelle stringhe di traduzione.
+-   Compatibile con React 18/19 e Next.js 14/15.
 
-## Installation
+## Installazione
 
-To install `next-translator`, run the following command:
+Per installare `next-translator`, esegui il seguente comando:
 
 ```bash
 npm install next-translator
 ```
 
-## Setup
+## Configurazione
 
-### Configuring Translations
+### Configurazione delle traduzioni
 
-First, create a configuration file for managing your translations. You can simply copy and paste the following example. Make sure to keep the directory structure unchanged for seamless integration.
+Innanzitutto, crea un file di configurazione per gestire le tue traduzioni. Puoi semplicemente copiare e incollare il seguente esempio. Assicurati di mantenere invariata la struttura della directory per un'integrazione perfetta.
 
 ```typescript
 // utils/initializeTranslations.ts
@@ -52,36 +53,36 @@ const initializeTranslations = async () => {
 export default initializeTranslations;
 ```
 
-### Creating the Locales Directory
+### Creazione della directory Locales
 
-Create a `locales` directory in your project to store your JSON translation files (e.g., `it.json`, `en.json`).
+Crea una directory `locales` nel tuo progetto per archiviare i tuoi file di traduzione JSON (ad esempio, `it.json`, `en.json`).
 
-## Usage
+## Utilizzo
 
-### Using Variables in Translations
+### Utilizzo di variabili nelle traduzioni
 
-You can include variables in your JSON translation files like this:
+Puoi includere variabili nei tuoi file di traduzione JSON in questo modo:
 
 ```json
 {
-    "hello": "Hello %s"
+    "hello": "Ciao %s"
 }
 ```
 
-And use them in your translations:
+E utilizzarle nelle tue traduzioni:
 
 ```javascript
 t('hello', 'zxcvbinz');
 ```
 
-This feature is available both on the server and client side.
+Questa funzionalità è disponibile sia lato server che lato client.
 
-### Server-Side Rendering
+### Rendering lato server
 
-To use `next-translator` in a server-side rendered page, import and initialize translations as follows:
+Per utilizzare `next-translator` in una pagina renderizzata lato server, importa e inizializza le traduzioni come segue:
 
 ```typescript
-// pages/home.tsx
+// app/page.tsx
 import initializeTranslations from '@/utils/translations';
 import { CreateServerProvider } from 'next-translator';
 
@@ -97,12 +98,12 @@ export default async function Home() {
 }
 ```
 
-### Client-Side Rendering
+### Rendering lato client
 
-For client-side rendering, set up the `TranslationProvider` in your `layout.tsx`:
+Per il rendering lato client, configura il `TranslationProvider` nel tuo `layout.tsx`:
 
 ```typescript
-// layout.tsx
+// app/layout.tsx
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
@@ -129,14 +130,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 }
 ```
 
-Then, use the translator in your app:
+Quindi, utilizza il traduttore nella tua app:
 
 ```typescript
-// pages/home.tsx
+// app/client-page.tsx
 'use client';
 import { useTranslator } from 'next-translator';
 
-export default async function Home() {
+export default function ClientPage() {
     const { t } = useTranslator('client');
 
     return (
@@ -147,11 +148,11 @@ export default async function Home() {
 }
 ```
 
-## Building the Package
+## Compilazione del pacchetto
 
-To build the package, run:
+Per compilare il pacchetto, esegui:
 
 ```bash
-npm run build # Creates dist folder
-npm pack # Creates a tar.gz file
+npm run build # Crea la cartella dist
+npm pack # Crea un file tar.gz
 ```

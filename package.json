@@ -1,27 +1,27 @@
 {
-    "name": "next-translator",
-    "version": "3.0.4",
-    "description": "Simple multilanguage for nextjs",
-    "main": "dist/index.js",
-    "scripts": {
-        "build": "tsc --skipLibCheck",
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "peerDependencies": {
-        "cookies-next": "^2.1.1",
-        "next": "^14.0.0",
-        "react": "18.2.0"
-    },
-    "devDependencies": {
-        "@types/react": "18.2.6",
-        "next": "^13.4.2",
-        "tslib": "^2.5.2",
-        "typescript": "5.0.4"
-    },
-    "author": "zxcvbinz",
-    "license": "ISC",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/zxcvbinz/next-translator.git"
-    }
+	"name": "next-translator",
+	"version": "4.0.0",
+	"description": "Simple multilanguage for nextjs",
+	"main": "dist/index.js",
+	"scripts": {
+		"build": "tsc --skipLibCheck",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"peerDependencies": {
+		"cookies-next": "^4.0.0",
+		"next": "^14.0.0 || ^15.0.0",
+		"react": "^18.2.0 || ^19.0.0"
+	},
+	"devDependencies": {
+		"@types/react": "^18.2.6",
+		"next": "^15.0.0",
+		"tslib": "^2.6.2",
+		"typescript": "^5.3.3"
+	},
+	"author": "zxcvbinz",
+	"license": "ISC",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/zxcvbinz/next-translator.git"
+	}
 }

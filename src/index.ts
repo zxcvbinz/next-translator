@@ -1,7 +1,11 @@
-export { configTR, TranslationInput, ServerConfig } from './type/types';
+export { configTR, TranslationInput, ServerConfig } from "./type/types";
 
-export { CreateServerProvider } from './server/CreateServerProvider';
+export { CreateServerProvider } from "./server/CreateServerProvider";
 
-export { TranslationProvider } from './client/provider/TranslationProvider';
+export { TranslationProvider } from "./client/provider/TranslationProvider";
 
-export { useTranslator, getLocale, setLocale } from './client/useClientTranslator';
+export {
+	useTranslator,
+	getLocale,
+	setLocale,
+} from "./client/useClientTranslator";
